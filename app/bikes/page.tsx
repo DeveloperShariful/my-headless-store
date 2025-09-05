@@ -78,7 +78,12 @@ async function getBikeProducts(
     },
     context: { fetchOptions: { next: { revalidate: 10 } } },
   });
-
+  if (!data || !data.products) {
+    return {
+      products: [],
+      pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: null, endCursor: null },
+    };
+  }
   return {
     products: data.products.nodes,
     pageInfo: data.products.pageInfo,

@@ -1,0 +1,101 @@
+/* app/product/[slug]/ProductPage.module.css */
+.container { max-width: 1500px; margin: 2rem auto; padding: 2rem; font-family: sans-serif; }
+
+/* --- মূল লেআউট --- */
+.productLayout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: flex-start;  }
+.galleryContainer { display: flex; flex-direction: column; gap: 1rem; position: sticky; top: 100px;  }
+.mainImage { width: 100%; height: auto; border-radius: 12px; border: 1px solid #eaeaea; }
+.thumbnailGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.thumbnail { width: 100%; height: auto; border-radius: 6px; border: 2px solid #eaeaea; cursor: pointer; transition: border-color 0.2s; }
+.thumbnail:hover, .activeThumbnail { border-color: #0070f3; }
+
+/* --- ডান দিকের কন্টেন্ট --- */
+.productTitle { font-size: 2.2rem; line-height: 1.3; margin: 0 0 0.75rem 0; font-weight: 700; color: #1a202c; }
+.ratingWrapper { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.rating { color: #f8b400; }
+.reviewsCount { color: #777; font-size: 0.9rem; }
+.priceWrapper { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.dealBadge { height: 30px; }
+.productPrice { font-size: 2.2rem; font-weight: 800; color: #1a202c; }
+
+/* --- Short Description (অপরিবর্তিত) --- */
+.shortDescription ul {
+  list-style: none; padding: 0; margin: 1.5rem 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.shortDescription li {
+  background-color: #f8f9fa; padding: 1rem; border-radius: 8px;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+
+/* --- শুধুমাত্র এই অংশটুকু নতুন করে যোগ করা বা পরিবর্তন করা হয়েছে --- */
+.quantityAndCart {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.quantitySelector {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.quantitySelector button {
+  background: none;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.quantitySelector span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 0 1rem;
+}
+.trustBadges {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+.checkoutGuarantee {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.guaranteeText {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.5rem;
+}
+.paymentLogos {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  padding: 0 10px 0 10px;
+}
+/* --- পরিবর্তন শেষ --- */
+
+/* --- ট্যাব এবং Related Products (অপরিবর্তিত) --- */
+.tabsContainer { margin-top: 4rem; border-top: 1px solid #eaeaea; padding-top: 2rem; }
+.tabButtons { display: flex; gap: 1rem; border-bottom: 1px solid #eaeaea; margin-bottom: 2rem; }
+.tabButton { padding: 1rem 1.5rem; background: none; border: none; font-size: 1.1rem; cursor: pointer; border-bottom: 3px solid transparent; color: #555; }
+.activeTab { border-bottom-color: #0070f3; font-weight: 600; color: #1a202c; }
+.tabContent { line-height: 1.8; }
+.relatedProducts { margin-top: 5rem; border-top: 1px solid #eaeaea; padding-top: 2rem; }
+.relatedTitle { text-align: center; font-size: 2rem; margin-bottom: 2rem; }
+.relatedGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+/* --- রেসপন্সিভ ডিজাইন (অপরিবর্তিত) --- */
+@media (max-width: 900px) { 
+  .productLayout { 
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .galleryContainer {
+    position: static;
+  }
+  .relatedGrid { grid-template-columns: repeat(2, 1fr); }
+  .shortDescription ul { grid-template-columns: 1fr; } 
+}
+@media (max-width: 600px) { 
+  .relatedGrid { grid-template-columns: 1fr; }
+}

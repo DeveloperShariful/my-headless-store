@@ -1,18 +1,26 @@
 // app/layout.tsx
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { CartProvider } from "../context/CartContext";
+import { CartProvider } from "../context/CartContext"; // <-- CartProvider ইম্পোর্ট করা হয়েছে
 import { Toaster } from 'react-hot-toast'; 
 
-const inter = Inter({ subsets: ["latin"] });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
-export const metadata = {
-  title: "My Headless Store",
-  description: "A modern headless e-commerce store.",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "MyStore - Headless WooCommerce",
+  description: "A modern headless e-commerce store with Next.js",
 };
 
 export default function RootLayout({
@@ -22,7 +30,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {/* --- মূল সমাধান এখানে --- */}
         <CartProvider>
           <Toaster position="top-center" reverseOrder={false} /> 
           <Header />

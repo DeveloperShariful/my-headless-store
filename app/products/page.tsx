@@ -5,11 +5,11 @@ import client from '../../lib/apolloClient';
 import styles from './products.module.css';
 import ProductFilters from './ProductFilters';
 import PaginationControls from './PaginationControls';
-import ProductCard from './ProductCard'; // <-- ১. এই নতুন লাইনটি যোগ করা হয়েছে
+import ProductCard from './ProductCard';
 
 const PRODUCTS_PER_PAGE = 12;
 
-// --- এই অংশগুলো অপরিবর্তিত ---
+// --- Interfaces (অপরিবর্তিত) ---
 interface Product {
   id: string;
   name: string;
@@ -17,30 +17,29 @@ interface Product {
   image?: { sourceUrl: string };
   price?: string;
 }
-
 interface Category {
   id: string;
   name: string;
   slug: string;
 }
-
 interface PageInfo {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   startCursor: string | null;
   endCursor: string | null;
 }
-
+// --- QueryData Interface-এ একটি ছোট পরিবর্তন আনা হয়েছে ---
 interface QueryData {
   products: {
     nodes: Product[];
     pageInfo: PageInfo;
-  };
+  } | null; // <-- products null হতে পারে
   productCategories: {
     nodes: Category[];
-  };
+  } | null; // <-- productCategories null হতে পারে
 }
 
+// --- শুধুমাত্র এই ফাংশনটি আপডেট করা হয়েছে ---
 async function getProductsAndCategories(
     category: string | null,
     first: number | null,
@@ -88,10 +87,21 @@ async function getProductsAndCategories(
     context: { fetchOptions: { next: { revalidate: 10 } } },
   });
 
+  // --- মূল পরিবর্তন এখানে ---
+  // যদি ডেটা না আসে বা প্রয়োজনীয় অংশগুলো না থাকে, তাহলে একটি খালি ফলাফল পাঠানো হচ্ছে
+  if (!data) {
+    return {
+      products: [],
+      categories: [],
+      pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: null, endCursor: null },
+    };
+  }
+
+  // এখন TypeScript জানে যে 'data' খালি নয়
   return {
-    products: data.products.nodes,
-    categories: data.productCategories.nodes,
-    pageInfo: data.products.pageInfo,
+    products: data.products?.nodes || [],
+    categories: data.productCategories?.nodes || [],
+    pageInfo: data.products?.pageInfo || { hasNextPage: false, hasPreviousPage: false, startCursor: null, endCursor: null },
   };
 }
 
@@ -128,7 +138,6 @@ export default async function ProductsPage({
         <div className={styles.productsGridContainer}>
           {products.length > 0 ? (
             <div className={styles.grid}>
-              {/* --- ২. এখানে আগের Link কম্পোনেন্টের বদলে ProductCard ব্যবহার করা হয়েছে --- */}
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -140,7 +149,6 @@ export default async function ProductsPage({
           <PaginationControls pageInfo={pageInfo} />
         </div>
       </main>
-      
     </div>
   );
 }

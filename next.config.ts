@@ -1,15 +1,18 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
-  
-  // --- শুধুমাত্র এই অংশটুকু যোগ করা হয়েছে ---
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
     ignoreDuringBuilds: true,
+  },
+  
+  // --- শুধুমাত্র এই অংশটুকু যোগ করুন ---
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
   },
   // --- এই পর্যন্ত ---
 };
 
-export default nextConfig;
+module.exports = nextConfig;

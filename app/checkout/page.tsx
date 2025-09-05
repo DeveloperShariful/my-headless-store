@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useState, useEffect, useCallback } from 'react';
 import { useCart } from '../../context/CartContext';
@@ -34,6 +34,16 @@ const CHECKOUT_MUTATION = gql`
     checkout(input: $input) { result order { orderNumber } }
   }
 `;
+interface CheckoutQueryData {
+  cart: {
+    availableShippingMethods: {
+      rates: any[];
+    }[];
+  };
+  paymentGateways: {
+    nodes: any[];
+  };
+}
 
 export default function CheckoutPage() {
   const { cartItems, clearCart } = useCart();
@@ -50,7 +60,7 @@ export default function CheckoutPage() {
   const refreshCheckout = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await client.query({ query: GET_CHECKOUT_DATA, fetchPolicy: 'network-only' });
+      const { data } = await client.query<CheckoutQueryData>({ query: GET_CHECKOUT_DATA, fetchPolicy: 'network-only' });
       setCheckoutData(data);
       if (data.cart?.availableShippingMethods?.[0]?.rates?.[0] && !selectedShipping) {
         setSelectedShipping(data.cart.availableShippingMethods[0].rates[0].id);

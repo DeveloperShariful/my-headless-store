@@ -1,0 +1,15 @@
+/* components/Footer.module.css */
+.footer {
+  background-color: #f8f8f8;
+  border-top: 1px solid #eaeaea;
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  text-align: center;
+  color: #666;
+}

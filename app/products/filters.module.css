@@ -1,0 +1,39 @@
+/* app/products/filters.module.css */
+
+.filterWrapper {
+  border: 1px solid #e5e5e5;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: #fcfcfc;
+}
+
+.filterTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.categoryList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- এখানে পরিবর্তন করা হয়েছে --- */
+.categoryItem {
+  padding: 0.75rem 0.5rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.categoryItem:hover {
+  background-color: #f0f0f0;
+}
+
+.categoryItem.active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}

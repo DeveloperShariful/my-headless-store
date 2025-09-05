@@ -6,10 +6,10 @@ import Link from 'next/link';
 import styles from './CartPage.module.css';
 
 export default function CartPage() {
-  // context থেকে নতুন ফাংশনগুলো আনা হলো
   const { cartItems, updateQuantity, removeFromCart } = useCart();
 
   const parsePrice = (priceHtml: string): number => {
+    if (!priceHtml) return 0;
     const priceString = priceHtml.replace(/<[^>]*>/g, '').replace(/[^0-9.]/g, '');
     return parseFloat(priceString) || 0;
   };
@@ -36,21 +36,30 @@ export default function CartPage() {
         <div className={styles.cartItems}>
           {cartItems.map(item => (
             <div key={item.id} className={styles.cartItem}>
-              <img src={item.image} alt={item.name} className={styles.itemImage} />
-              <div className={styles.itemDetails}>
+              {item.image ? (
+                  <img src={item.image} alt={item.name} className={styles.itemImage} />
+              ) : (
+                  <div style={{width: '100px', height: '100px', backgroundColor: '#f0f0f0'}} className={styles.itemImage} />
+              )}
+              
+              {/* --- মূল পরিবর্তন এখানে --- */}
+              <div className={styles.itemInfo}>
                 <h2 className={styles.itemName}>{item.name}</h2>
-                <p className={styles.itemPrice} dangerouslySetInnerHTML={{ __html: item.price }}></p>
-                <div className={styles.quantityControl}>
-                  {/* বাটনগুলো এখন কার্যকরী করা হয়েছে */}
-                  <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
-                  <span>{item.quantity}</span>
-                  <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                <div className={styles.itemMeta}>
+                    <p className={styles.itemPrice} dangerouslySetInnerHTML={{ __html: item.price }}></p>
+                    <div className={styles.quantityControl}>
+                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
+                      <span>{item.quantity}</span>
+                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                    </div>
                 </div>
               </div>
+
               <div className={styles.itemActions}>
-                {/* রিমুভ বাটন এখন কার্যকরী করা হয়েছে */}
                 <button onClick={() => removeFromCart(item.id)} className={styles.removeButton}>Remove</button>
               </div>
+              {/* --- পরিবর্তন শেষ --- */}
+
             </div>
           ))}
         </div>
@@ -62,8 +71,8 @@ export default function CartPage() {
             <span>${subtotal.toFixed(2)}</span>
           </div>
           <Link href="/checkout" className={styles.checkoutButton}>
-    Proceed to Checkout
-  </Link>
+            Proceed to Checkout
+          </Link>
         </div>
       </div>
     </div>

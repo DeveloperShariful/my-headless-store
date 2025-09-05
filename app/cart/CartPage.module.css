@@ -26,6 +26,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
+  align-items: flex-start; /* summary কে উপরে রাখার জন্য */
 }
 
 .cartItems {
@@ -59,6 +60,7 @@
 .itemName {
   font-size: 1.2rem;
   margin: 0;
+  font-weight: 600; /* নামটিকে একটু বোল্ড করা হলো */
 }
 
 .itemPrice {
@@ -74,6 +76,9 @@
 
 .quantityControl button {
   padding: 0.2rem 0.6rem;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  cursor: pointer;
 }
 
 .removeButton {
@@ -90,6 +95,8 @@
   padding: 1.5rem;
   border-radius: 8px;
   height: fit-content;
+  position: sticky; /* স্ক্রল করলেও যেন সামারি দেখা যায় */
+  top: 100px; /* আপনার হেডারের উচ্চতার উপর নির্ভর করে */
 }
 
 .cartSummary h2 {
@@ -104,13 +111,98 @@
 }
 
 .checkoutButton {
+  display: block; /* Link কে বাটন হিসেবে দেখানোর জন্য */
+  text-align: center;
   width: 100%;
   padding: 1rem;
   font-size: 1.1rem;
-  background-color: #0070f3;
+  background-color: #030303;
   color: white;
+  text-decoration: none; /* Link এর আন্ডারলাইন সরানোর জন্য */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+}
+
+/* --- রেসপন্সিভ ডিজাইনের জন্য নতুন কোড --- */
+
+@media (max-width: 900px) {
+  .cartLayout {
+    /* ট্যাবলেট স্ক্রিনের জন্য দুই কলামের পরিবর্তে এক কলাম */
+    grid-template-columns: 1fr;
+  }
+  
+  .cartSummary {
+    /* এক কলাম হলে সামারি নিচে চলে আসবে */
+     /* সামারিকে উপরে দেখানোর জন্য */
+    margin-bottom: 2rem;
+    position: static; /* sticky পজিশন বন্ধ করা হলো */
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+
+  /* --- মোবাইল স্ক্রিনের জন্য আইটেমের লেআউট সম্পূর্ণ নতুন করে লেখা হয়েছে --- */
+  .cartItem {
+    display: flex; /* Flexbox ব্যবহার করা হচ্ছে */
+    align-items: flex-start; /* আইটেমগুলোকে উপরে অ্যালাইন করা হচ্ছে */
+    gap: 1rem;
+    position: relative; /* Remove বাটনকে পজিশন করার জন্য */
+  }
+
+  .itemImage {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0; /* ছবিটি যেন ছোট না হয়ে যায় */
+  }
+
+  /* নতুন ক্লাস */
+  .itemInfo {
+    flex-grow: 1; /* বাকি সব জায়গা নেবে */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-right: 70px; /* Remove বাটনের জন্য জায়গা রাখা হচ্ছে */
+  }
+  
+  .itemName {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  /* নতুন ক্লাস */
+  .itemMeta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* দাম ও পরিমাণ বাম দিকে থাকবে */
+    gap: 0.5rem;
+  }
+  
+  .itemPrice {
+    font-size: 1rem; /* দামের ফন্ট সাইজ বাড়ানো হলো */
+    margin: 0;
+  }
+
+  .quantityControl {
+    margin-top: 0.5rem;
+  }
+
+  .itemActions {
+    position: absolute;
+    top: 0; /* উপরে ডান দিকে */
+    right: 0;
+  }
+  
+  .removeButton {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
 }

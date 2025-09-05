@@ -2,7 +2,7 @@
 
 import { gql } from '@apollo/client';
 import client from '../../../lib/apolloClient';
-import AddToCartButton from '../../../components/AddToCartButton'; // <-- নতুন কম্পোনেন্ট ইম্পোর্ট করা হয়েছে
+import AddToCartButton from '../../../components/AddToCartButton';
 
 interface Product {
   id: string;
@@ -15,10 +15,11 @@ interface Product {
 }
 
 interface GetProductQueryData {
-  product: Product;
+  product: Product | null; // <-- পরিবর্তন ১: প্রোডাক্ট null হতে পারে
 }
 
-async function getProductBySlug(slug: string): Promise<Product> {
+// --- শুধুমাত্র এই ফাংশনটি পরিবর্তন করা হয়েছে ---
+async function getProductBySlug(slug: string): Promise<Product | null> {
   const { data } = await client.query<GetProductQueryData>({
     query: gql`
       query GetProductBySlug($slug: ID!) {
@@ -47,6 +48,12 @@ async function getProductBySlug(slug: string): Promise<Product> {
       },
     },
   });
+  
+  // --- পরিবর্তন ২: ডেটা না থাকলে null ফেরত দেওয়া হচ্ছে ---
+  if (!data || !data.product) {
+    return null;
+  }
+  
   return data.product;
 }
 
@@ -57,11 +64,10 @@ export default async function SingleProductPage({ params }: { params: { slug: st
     return <div>Product not found!</div>;
   }
 
-  // AddToCartButton-এ পাঠানোর জন্য প্রোডাক্ট ডেটা প্রস্তুত করা
   const productForCart = {
     id: product.id,
     name: product.name,
-    price: product.price || '0', // price না থাকলে '0' পাঠানো হচ্ছে
+    price: product.price || '0',
     image: product.image?.sourceUrl,
   };
 
@@ -86,7 +92,6 @@ export default async function SingleProductPage({ params }: { params: { slug: st
           dangerouslySetInnerHTML={{ __html: product.description }} 
         />
         
-        {/* পুরনো বাটনের জায়গায় নতুন AddToCartButton কম্পোনেন্ট ব্যবহার করা হচ্ছে */}
         <AddToCartButton product={productForCart} />
 
       </div>

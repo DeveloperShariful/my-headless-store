@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MyStore - Headless WooCommerce",
-  description: "A modern headless e-commerce store with Next.js",
+  title: "MyStore - Preview",
+  description: "A headless WooCommerce store under development with Next.js",
 };
 
 export default function RootLayout({

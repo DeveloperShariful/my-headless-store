@@ -62,14 +62,21 @@ export default function CheckoutPage() {
       setLoading(true);
       const { data } = await client.query<CheckoutQueryData>({ query: GET_CHECKOUT_DATA, fetchPolicy: 'network-only' });
       setCheckoutData(data);
-      if (data.cart?.availableShippingMethods?.[0]?.rates?.[0] && !selectedShipping) {
-        setSelectedShipping(data.cart.availableShippingMethods[0].rates[0].id);
+      if (data) { 
+        setCheckoutData(data);
+        if (data.cart?.availableShippingMethods?.[0]?.rates?.[0] && !selectedShipping) {
+          setSelectedShipping(data.cart.availableShippingMethods[0].rates[0].id);
+        }
+        if (data.paymentGateways?.nodes?.[0] && !selectedPayment) {
+          setSelectedPayment(data.paymentGateways.nodes[0].id);
+        }
       }
-      if (data.paymentGateways?.nodes?.[0] && !selectedPayment) {
-        setSelectedPayment(data.paymentGateways.nodes[0].id);
-      }
-    } catch (error) { toast.error("Could not load checkout data."); } 
-    finally { setLoading(false); }
+      
+    } catch (error) { 
+      toast.error("Could not load checkout data."); 
+    } finally { 
+      setLoading(false); 
+    }
   }, [selectedShipping, selectedPayment]);
 
   useEffect(() => {

@@ -90,10 +90,8 @@
 .mobileMenuLink {
   font-size: 1.8rem;
   font-weight: bold;
-  padding: 1rem;
-  border: 2px solid #333;
   border-radius: 8px;
-  text-align: center;
+  text-align: start;
   width: 100%;
   text-decoration: none;
   color: inherit;
@@ -104,20 +102,21 @@
 @media (max-width: 768px) {
   .navigation {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0px;
+    left: 0px;
     width: 100%;
     height: 100vh;
     background-color: white;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     z-index: 100;
     gap: 1.5rem;
+    padding: 20px;
+    
   }
-
   .navigation.menuOpen {
     transform: translateX(0);
   }

@@ -46,7 +46,7 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
         }
       `;
 
-      fetch("https://shop.sharifulbuilds.com/graphql", {
+      fetch("https://sharifulbuilds.com/graphql", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

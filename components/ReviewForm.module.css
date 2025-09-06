@@ -1,0 +1,79 @@
+.reviewForm {
+  margin-top: 2rem;
+  border-top: 1px solid #eee;
+  padding-top: 2rem;
+}
+
+.reviewForm h4 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.reviewForm p {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+
+/* --- স্টার রেটিং এর জন্য মূল পরিবর্তন --- */
+.starRating {
+  display: flex; /* স্টারগুলোকে পাশাপাশি আনার জন্য */
+  gap: 0.25rem; /* স্টারগুলোর মধ্যে সামান্য ফাঁকা জায়গা */
+  margin-bottom: 1rem;
+}
+
+.starRating input[type="radio"] {
+  display: none; /* আসল রেডিও বাটন লুকিয়ে রাখা হবে */
+}
+
+.star {
+  cursor: pointer;
+  font-size: 1.8rem; /* স্টারের আকার */
+  transition: color 0.2s ease;
+}
+/* --- পরিবর্তন শেষ --- */
+
+.reviewForm textarea,
+.reviewForm input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.submitButton {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.submitButton:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}

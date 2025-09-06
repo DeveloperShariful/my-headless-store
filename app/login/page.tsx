@@ -33,7 +33,7 @@ const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     `;
 
     try {
-      const response = await fetch("https://shop.sharifulbuilds.com/graphql", {
+      const response = await fetch("https://sharifulbuilds.com/graphql", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -1,3 +1,5 @@
+/* app/checkout/CheckoutPage.module.css */
+
 .container {
   max-width: 1200px;
   margin: 2rem auto;
@@ -22,7 +24,7 @@
 .formColumn,
 .summaryColumn {
   background-color: #f8f9fa;
-  padding: 2.5rem;
+  padding: 12px;
   border-radius: 12px;
 }
 
@@ -70,16 +72,32 @@
   border-top: 1px solid #ddd;
 }
 
+.section h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
 .option {
   display: flex;
   align-items: center;
   gap: 0.8rem;
   padding: 1rem;
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 0.75rem;
   background-color: #fff;
   cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.option:hover {
+    border-color: #aaa;
+}
+
+.selectedOption {
+    border-color: #0070f3;
+    box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
 }
 
 .option input {
@@ -138,7 +156,7 @@
 
 .placeOrderButton {
   width: 100%;
-  padding: 1rem;
+  padding: ;
   font-size: 1.1rem;
   background-color: #000;
   color: white;
@@ -191,7 +209,6 @@
     grid-template-columns: 1fr;
   }
   .summaryColumn {
-    grid-row: 1;
     margin-bottom: 2rem;
   }
 }
